@@ -155,8 +155,11 @@ build-assisted-service:
 build-assisted-service-operator:
 	CGO_ENABLED=0 go build $(DEBUG_ARGS) -o $(BUILD_FOLDER)/assisted-service-operator cmd/operator/main.go
 
+build-assisted-service-debugger:
+	CGO_ENABLED=0 go build $(DEBUG_ARGS) -o $(BUILD_FOLDER)/assisted-service-debugger cmd/debugger.go
+
 build-minimal: $(BUILD_FOLDER)
-	$(MAKE) -j build-assisted-service build-assisted-service-operator
+	$(MAKE) -j build-assisted-service build-assisted-service-operator build-assisted-service-debugger
 
 update-minimal:
 	docker build $(CONTAINER_BUILD_PARAMS) -f Dockerfile.assisted-service . -t $(SERVICE)

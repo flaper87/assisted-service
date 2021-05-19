@@ -133,7 +133,7 @@ func (r *BMACReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.
 	// What happens if we do the reconcile on a BMH that
 	// is in a Deprovisioning state?
 
-	agent := r.findAgent(ctx, bmh)
+	agent := r.FindAgent(ctx, bmh)
 
 	// handle multiple agents matching the
 	// same BMH's Mac Address
@@ -691,7 +691,7 @@ func (r *BMACReconciler) findAgentsByClusterDeployment(ctx context.Context, clus
 // active one.
 //
 // `nil` will be returned if no agent matches
-func (r *BMACReconciler) findAgent(ctx context.Context, bmh *bmh_v1alpha1.BareMetalHost) *aiv1beta1.Agent {
+func (r *BMACReconciler) FindAgent(ctx context.Context, bmh *bmh_v1alpha1.BareMetalHost) *aiv1beta1.Agent {
 	agentList := aiv1beta1.AgentList{}
 	err := r.Client.List(ctx, &agentList, client.InNamespace(bmh.Namespace))
 	if err != nil {
